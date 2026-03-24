@@ -14,7 +14,6 @@
     "jsx": "preserve",
     "incremental": true,
     "plugins": [{ "name": "next" }],
-    "types": ["@react-three/fiber"],
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -23,8 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/r3f.d.ts"
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
