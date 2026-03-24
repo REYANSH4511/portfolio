@@ -1,7 +1,14 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 
-const terminalLines = [
+type TerminalLine =
+  | { type: 'comment'; text: string }
+  | { type: 'empty' }
+  | { type: 'code'; label: string; name: string; value: string }
+  | { type: 'prop'; key: string; val: string; isGreen?: boolean }
+  | { type: 'close'; text: string }
+
+const terminalLines: TerminalLine[] = [
   { type: 'comment', text: '// Reyansh Joshi — Developer Profile' },
   { type: 'empty' },
   { type: 'code', label: 'const', name: 'contact', value: '{' },
@@ -27,42 +34,46 @@ function TerminalWindow() {
     return () => clearTimeout(t)
   }, [visibleLines])
 
+  const renderLine = (line: TerminalLine, i: number) => {
+    switch (line.type) {
+      case 'comment':
+        return <span key={i} className="text-[#6e7681]">{line.text}</span>
+      case 'empty':
+        return <span key={i}>&nbsp;</span>
+      case 'code':
+        return (
+          <span key={i}>
+            <span className="text-[#f97583]">{line.label} </span>
+            <span className="text-[#58e6d9]">{line.name}</span>
+            <span className="text-[#e6edf3]"> = {line.value}</span>
+          </span>
+        )
+      case 'prop':
+        return (
+          <span key={i} className="pl-4">
+            <span className="text-[#f0a53b]">{line.key}</span>
+            <span className="text-[#e6edf3]">: </span>
+            <span className={line.isGreen ? 'text-[#39d353]' : 'text-[#58e6d9]'}>{line.val}</span>
+            <span className="text-[#6e7681]">,</span>
+          </span>
+        )
+      case 'close':
+        return <span key={i} className="text-[#e6edf3]">{line.text}</span>
+    }
+  }
+
   return (
     <div className="bg-[#0d1117] border border-[#21262d] rounded-xl overflow-hidden font-mono text-sm">
-      {/* Terminal header */}
       <div className="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-[#21262d]">
         <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
         <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
         <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
         <span className="ml-auto text-[#6e7681] text-xs">reyansh.contact.ts</span>
       </div>
-
-      {/* Terminal body */}
       <div className="p-5 space-y-0.5 min-h-[300px]">
         {terminalLines.slice(0, visibleLines).map((line, i) => (
           <div key={i} className="leading-7">
-            {line.type === 'comment' && (
-              <span className="text-[#6e7681]">{line.text}</span>
-            )}
-            {line.type === 'empty' && <span>&nbsp;</span>}
-            {line.type === 'code' && (
-              <span>
-                <span className="text-[#f97583]">{line.label} </span>
-                <span className="text-[#58e6d9]">{line.name}</span>
-                <span className="text-[#e6edf3]"> = {line.value}</span>
-              </span>
-            )}
-            {line.type === 'prop' && (
-              <span className="pl-4">
-                <span className="text-[#f0a53b]">{line.key}</span>
-                <span className="text-[#e6edf3]">: </span>
-                <span className={line.isGreen ? 'text-[#39d353]' : 'text-[#39d353]'}>{line.val}</span>
-                <span className="text-[#6e7681]">,</span>
-              </span>
-            )}
-            {line.type === 'close' && (
-              <span className="text-[#e6edf3]">{line.text}</span>
-            )}
+            {renderLine(line, i)}
           </div>
         ))}
         {visibleLines < terminalLines.length && (
@@ -93,6 +104,30 @@ export default function Contact() {
     return () => observer.disconnect()
   }, [])
 
+  const contactLinks = [
+    {
+      icon: '✉️',
+      label: 'Email',
+      value: 'reyanshjoshi4511@gmail.com',
+      href: 'mailto:reyanshjoshi4511@gmail.com',
+      external: false,
+    },
+    {
+      icon: '📱',
+      label: 'Phone',
+      value: '+91 8696164511',
+      href: 'tel:+918696164511',
+      external: false,
+    },
+    {
+      icon: '💼',
+      label: 'LinkedIn',
+      value: 'linkedin.com/in/reyansh-joshi',
+      href: 'https://linkedin.com/in/reyansh-joshi',
+      external: true,
+    },
+  ]
+
   return (
     <section
       id="contact"
@@ -101,7 +136,6 @@ export default function Contact() {
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* Left */}
           <div>
             <div className="reveal mb-4">
               <span className="font-mono text-xs tracking-[0.2em] uppercase text-[#58e6d9]">// Let's Connect</span>
@@ -118,32 +152,10 @@ export default function Contact() {
               style={{ transitionDelay: '0.2s' }}
             >
               Based in Gurugram, India. Open to senior full stack roles, tech lead positions,
-              and ambitious product teams. Let's build something impactful together.
+              and ambitious product teams. Let&apos;s build something impactful together.
             </p>
-
-            {/* Contact links */}
             <div className="reveal flex flex-col gap-3" style={{ transitionDelay: '0.3s' }}>
-              {[
-                {
-                  icon: '✉️',
-                  label: 'Email',
-                  value: 'reyanshjoshi4511@gmail.com',
-                  href: 'mailto:reyanshjoshi4511@gmail.com',
-                },
-                {
-                  icon: '📱',
-                  label: 'Phone',
-                  value: '+91 8696164511',
-                  href: 'tel:+918696164511',
-                },
-                {
-                  icon: '💼',
-                  label: 'LinkedIn',
-                  value: 'linkedin.com/in/reyansh-joshi',
-                  href: 'https://linkedin.com/in/reyansh-joshi',
-                  external: true,
-                },
-              ].map((link) => (
+              {contactLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
@@ -167,8 +179,6 @@ export default function Contact() {
               ))}
             </div>
           </div>
-
-          {/* Right: Terminal */}
           <div className="reveal" style={{ transitionDelay: '0.4s' }}>
             {started && <TerminalWindow />}
           </div>
