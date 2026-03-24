@@ -1,0 +1,21 @@
+{
+  "name": "Reyansh Joshi — Senior Full Stack Developer",
+  "short_name": "Reyansh Joshi",
+  "description": "Senior Full Stack Developer · MERN · Python · AWS · DevOps",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050709",
+  "theme_color": "#58e6d9",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
