@@ -1,9 +1,9 @@
+/// <reference types="@react-three/fiber" />
 'use client'
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-// ── StarField ──────────────────────────────────────────────────────────────
 function StarField() {
   const ref = useRef<THREE.Points>(null)
 
@@ -54,7 +54,6 @@ function StarField() {
   )
 }
 
-// ── NearParticles ───────────────────────────────────────────────────────────
 function NearParticles() {
   const ref = useRef<THREE.Points>(null)
 
@@ -74,14 +73,10 @@ function NearParticles() {
   useFrame((state) => {
     if (ref.current) {
       ref.current.rotation.y = THREE.MathUtils.lerp(
-        ref.current.rotation.y,
-        state.mouse.x * 0.25,
-        0.05
+        ref.current.rotation.y, state.mouse.x * 0.25, 0.05
       )
       ref.current.rotation.x = THREE.MathUtils.lerp(
-        ref.current.rotation.x,
-        -state.mouse.y * 0.15,
-        0.05
+        ref.current.rotation.x, -state.mouse.y * 0.15, 0.05
       )
       ref.current.rotation.z += 0.001
     }
@@ -101,7 +96,6 @@ function NearParticles() {
   )
 }
 
-// ── RotatingTorus ───────────────────────────────────────────────────────────
 function RotatingTorus() {
   const ref1 = useRef<THREE.Mesh>(null)
   const ref2 = useRef<THREE.Mesh>(null)
@@ -135,7 +129,6 @@ function RotatingTorus() {
   )
 }
 
-// ── FloatingIcosahedron ─────────────────────────────────────────────────────
 function FloatingIcosahedron() {
   const ref = useRef<THREE.Mesh>(null)
 
@@ -155,7 +148,6 @@ function FloatingIcosahedron() {
   )
 }
 
-// ── Default export ──────────────────────────────────────────────────────────
 export default function ParticleField() {
   return (
     <div className="absolute inset-0 z-0">

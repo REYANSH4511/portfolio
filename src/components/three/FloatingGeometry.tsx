@@ -1,10 +1,10 @@
+/// <reference types="@react-three/fiber" />
 'use client'
 import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { MeshDistortMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 
-// ── GlowOrb ─────────────────────────────────────────────────────────────────
 function GlowOrb() {
   const ref = useRef<THREE.Mesh>(null)
 
@@ -31,7 +31,6 @@ function GlowOrb() {
   )
 }
 
-// ── OrbitRing ────────────────────────────────────────────────────────────────
 interface OrbitRingProps {
   radius: number
   speed: number
@@ -56,7 +55,6 @@ function OrbitRing({ radius, speed, color, tilt }: OrbitRingProps) {
   )
 }
 
-// ── Satellite ────────────────────────────────────────────────────────────────
 interface SatelliteProps {
   radius: number
   speed: number
@@ -84,7 +82,6 @@ function Satellite({ radius, speed, color, offset }: SatelliteProps) {
   )
 }
 
-// ── Default export ───────────────────────────────────────────────────────────
 export default function FloatingGeometry() {
   return (
     <div className="w-full h-full">
