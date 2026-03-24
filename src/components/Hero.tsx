@@ -158,7 +158,7 @@ export default function Hero() {
 
             {/* Stats */}
             <div className="grid grid-cols-4 gap-4 py-6 border-t border-border/50">
-              <StatCounter value={3} label="Years Exp" suffix="+" />
+              <StatCounter value={4} label="Years Exp" suffix="+" />
               <StatCounter value={7} label="Projects" suffix="+" />
               <StatCounter value={45} label="DB Latency" suffix="%" />
               <StatCounter value={99} label="Uptime" suffix="%" />

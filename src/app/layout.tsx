@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: '%s | Reyansh Joshi',
   },
   description:
-    'Senior Full Stack Developer with 3+ years of experience building scalable MERN applications, microservices, AI pipelines, and DevOps systems. Based in Gurugram, India.',
+    'Senior Full Stack Developer with 4+ years of experience building scalable MERN applications, microservices, AI pipelines, and DevOps systems. Based in Gurugram, India.',
   keywords: [
     'Reyansh Joshi',
     'Full Stack Developer',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     url: BASE_URL,
     title: 'Reyansh Joshi — Senior Full Stack Developer',
     description:
-      'Senior Full Stack Developer with 3+ years building scalable MERN apps, AI pipelines & DevOps systems. MERN · Python · AWS · LangChain.',
+      'Senior Full Stack Developer with 4+ years building scalable MERN apps, AI pipelines & DevOps systems. MERN · Python · AWS · LangChain.',
     siteName: 'Reyansh Joshi Portfolio',
     locale: 'en_IN',
     images: [
@@ -103,7 +103,7 @@ const jsonLd = {
   telephone: '+91-8696164511',
   jobTitle: 'Senior Full Stack Developer',
   description:
-    'Senior Full Stack Developer with 3+ years of experience in MERN, Python, AWS, DevOps, and AI integration using LangChain and OpenAI APIs.',
+    'Senior Full Stack Developer with 4+ years of experience in MERN, Python, AWS, DevOps, and AI integration using LangChain and OpenAI APIs.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Gurugram',
