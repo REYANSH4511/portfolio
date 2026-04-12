@@ -9,105 +9,188 @@ export default function ParticleField() {
     const container = mountRef.current
     if (!container) return
 
-    const w = container.clientWidth  || window.innerWidth
-    const h = container.clientHeight || window.innerHeight
+    const W = () => container.clientWidth  || window.innerWidth
+    const H = () => container.clientHeight || window.innerHeight
 
-    // ── Renderer ─────────────────────────────────────────────────────────────
+    // ── Renderer ──────────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setSize(w, h)
+    renderer.setSize(W(), H())
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setClearColor(0x000000, 0)
     container.appendChild(renderer.domElement)
 
-    // ── Scene & Camera ────────────────────────────────────────────────────────
     const scene  = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 1000)
-    camera.position.z = 20
+    const camera = new THREE.PerspectiveCamera(60, W() / H(), 0.1, 2000)
+    camera.position.set(0, 0, 18)
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5))
+    // ── GALAXY ARMS ───────────────────────────────────────────────────────────
+    const galaxyCount = 6000
+    const galaxyPos   = new Float32Array(galaxyCount * 3)
+    const galaxyCol   = new Float32Array(galaxyCount * 3)
+    const galaxySize  = new Float32Array(galaxyCount)
 
-    // ── Star Field ────────────────────────────────────────────────────────────
-    const starCount = 4000
-    const starPos   = new Float32Array(starCount * 3)
-    const starCol   = new Float32Array(starCount * 3)
-    for (let i = 0; i < starCount; i++) {
-      const r     = 80 + Math.random() * 120
-      const theta = Math.random() * Math.PI * 2
-      const phi   = Math.acos(2 * Math.random() - 1)
-      starPos[i * 3]     = r * Math.sin(phi) * Math.cos(theta)
-      starPos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
-      starPos[i * 3 + 2] = r * Math.cos(phi)
-      const t = Math.random()
-      starCol[i * 3]     = 0.35 + t * 0.65
-      starCol[i * 3 + 1] = 0.9  - t * 0.1
-      starCol[i * 3 + 2] = 0.85 - t * 0.1
+    const insideColor  = new THREE.Color('#58e6d9')
+    const outsideColor = new THREE.Color('#0d1f2d')
+    const accentColor  = new THREE.Color('#39d353')
+
+    for (let i = 0; i < galaxyCount; i++) {
+      const radius    = Math.random() * 14
+      const spinAngle = radius * 1.8
+      const branchAngle = ((i % 3) / 3) * Math.PI * 2
+
+      const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.6
+      const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.6
+      const randomZ = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.6
+
+      galaxyPos[i * 3]     = Math.cos(branchAngle + spinAngle) * radius + randomX
+      galaxyPos[i * 3 + 1] = randomY * 0.4
+      galaxyPos[i * 3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ
+
+      const mixedColor = insideColor.clone()
+      if (i % 15 === 0) {
+        mixedColor.copy(accentColor)
+      } else {
+        mixedColor.lerp(outsideColor, radius / 14)
+      }
+      galaxyCol[i * 3]     = mixedColor.r
+      galaxyCol[i * 3 + 1] = mixedColor.g
+      galaxyCol[i * 3 + 2] = mixedColor.b
+      galaxySize[i] = Math.random() * 2 + 0.5
     }
-    const starGeo = new THREE.BufferGeometry()
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3))
-    starGeo.setAttribute('color',    new THREE.BufferAttribute(starCol, 3))
-    const starMat = new THREE.PointsMaterial({
-      vertexColors: true,
-      size:         0.4,
-      sizeAttenuation: true,
-      depthWrite:   false,
-      transparent:  true,
-      opacity:      0.85,
-    })
-    const stars = new THREE.Points(starGeo, starMat)
-    scene.add(stars)
 
-    // ── Near Particles ────────────────────────────────────────────────────────
-    const nearCount = 800
-    const nearPos   = new Float32Array(nearCount * 3)
-    for (let i = 0; i < nearCount; i++) {
-      nearPos[i * 3]     = (Math.random() - 0.5) * 50
-      nearPos[i * 3 + 1] = (Math.random() - 0.5) * 50
-      nearPos[i * 3 + 2] = (Math.random() - 0.5) * 30
+    const galaxyGeo = new THREE.BufferGeometry()
+    galaxyGeo.setAttribute('position', new THREE.BufferAttribute(galaxyPos, 3))
+    galaxyGeo.setAttribute('color',    new THREE.BufferAttribute(galaxyCol, 3))
+
+    const galaxyMat = new THREE.PointsMaterial({
+      size:            0.08,
+      sizeAttenuation: true,
+      vertexColors:    true,
+      transparent:     true,
+      opacity:         0.9,
+      depthWrite:      false,
+      blending:        THREE.AdditiveBlending,
+    })
+    const galaxy = new THREE.Points(galaxyGeo, galaxyMat)
+    galaxy.rotation.x = Math.PI * 0.15
+    galaxy.position.z = -8
+    scene.add(galaxy)
+
+    // ── DNA DOUBLE HELIX ──────────────────────────────────────────────────────
+    const helixGroup = new THREE.Group()
+    const helixCount = 300
+    const helixRadius = 2.5
+    const helixHeight = 20
+
+    for (let strand = 0; strand < 2; strand++) {
+      const strandOffset = strand * Math.PI
+      for (let i = 0; i < helixCount; i++) {
+        const t   = (i / helixCount) * Math.PI * 8
+        const y   = (i / helixCount) * helixHeight - helixHeight / 2
+
+        const sphere = new THREE.Mesh(
+          new THREE.SphereGeometry(0.06, 8, 8),
+          new THREE.MeshBasicMaterial({
+            color:       strand === 0 ? 0x58e6d9 : 0x39d353,
+            transparent: true,
+            opacity:     0.85,
+          })
+        )
+        sphere.position.set(
+          Math.cos(t + strandOffset) * helixRadius,
+          y,
+          Math.sin(t + strandOffset) * helixRadius
+        )
+        helixGroup.add(sphere)
+
+        // Rungs every 10 particles
+        if (i % 10 === 0) {
+          const pos1 = new THREE.Vector3(
+            Math.cos(t) * helixRadius, y, Math.sin(t) * helixRadius
+          )
+          const pos2 = new THREE.Vector3(
+            Math.cos(t + Math.PI) * helixRadius, y, Math.sin(t + Math.PI) * helixRadius
+          )
+          const rungGeo = new THREE.BufferGeometry().setFromPoints([pos1, pos2])
+          const rung = new THREE.Line(
+            rungGeo,
+            new THREE.LineBasicMaterial({ color: 0xf0a53b, transparent: true, opacity: 0.3 })
+          )
+          helixGroup.add(rung)
+        }
+      }
     }
-    const nearGeo = new THREE.BufferGeometry()
-    nearGeo.setAttribute('position', new THREE.BufferAttribute(nearPos, 3))
-    const nearMat = new THREE.PointsMaterial({
-      color:        0x58e6d9,
-      size:         0.15,
-      sizeAttenuation: true,
-      depthWrite:   false,
-      transparent:  true,
-      opacity:      0.6,
+    helixGroup.position.set(-6, 0, 0)
+    helixGroup.scale.setScalar(0.5)
+    scene.add(helixGroup)
+
+    // ── LASER GRID ────────────────────────────────────────────────────────────
+    const gridGroup = new THREE.Group()
+    const gridSize  = 40
+    const gridStep  = 4
+    const gridMat   = new THREE.LineBasicMaterial({
+      color: 0x58e6d9, transparent: true, opacity: 0.04
     })
-    const nearParticles = new THREE.Points(nearGeo, nearMat)
-    scene.add(nearParticles)
 
-    // ── Rotating Torus ────────────────────────────────────────────────────────
-    const torus1 = new THREE.Mesh(
-      new THREE.TorusGeometry(3, 0.08, 16, 80),
-      new THREE.MeshBasicMaterial({ color: 0x58e6d9, transparent: true, opacity: 0.25, wireframe: true })
-    )
-    torus1.position.set(4, 0, -8)
-    scene.add(torus1)
+    for (let x = -gridSize; x <= gridSize; x += gridStep) {
+      const pts = [
+        new THREE.Vector3(x, -8, -gridSize),
+        new THREE.Vector3(x, -8,  gridSize),
+      ]
+      gridGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat))
+    }
+    for (let z = -gridSize; z <= gridSize; z += gridStep) {
+      const pts = [
+        new THREE.Vector3(-gridSize, -8, z),
+        new THREE.Vector3( gridSize, -8, z),
+      ]
+      gridGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat))
+    }
+    // Perspective: tilt slightly
+    gridGroup.rotation.x = -0.1
+    scene.add(gridGroup)
 
-    const torus2 = new THREE.Mesh(
-      new THREE.TorusGeometry(1.8, 0.04, 8, 60),
-      new THREE.MeshBasicMaterial({ color: 0x39d353, transparent: true, opacity: 0.2, wireframe: true })
-    )
-    torus2.position.set(4, 0, -8)
-    scene.add(torus2)
+    // ── FLOATING RINGS ────────────────────────────────────────────────────────
+    const ringData = [
+      { r: 5,  tube: 0.02, color: 0x58e6d9, tilt: 0.4,  speed: 0.15,  x: 5,  y: 1  },
+      { r: 3.5,tube: 0.015,color: 0x39d353, tilt: 1.2,  speed: -0.2,  x: -4, y: -1 },
+      { r: 7,  tube: 0.01, color: 0xf0a53b, tilt: 0.8,  speed: 0.1,   x: 0,  y: 3  },
+    ]
+    const rings = ringData.map(d => {
+      const mesh = new THREE.Mesh(
+        new THREE.TorusGeometry(d.r, d.tube, 8, 120),
+        new THREE.MeshBasicMaterial({ color: d.color, transparent: true, opacity: 0.4 })
+      )
+      mesh.rotation.x = d.tilt
+      mesh.position.set(d.x, d.y, -5)
+      scene.add(mesh)
+      return { mesh, speed: d.speed }
+    })
 
-    const glowSphere = new THREE.Mesh(
-      new THREE.SphereGeometry(0.3, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0x58e6d9, transparent: true, opacity: 0.9 })
-    )
-    glowSphere.position.set(4, 0, -8)
-    scene.add(glowSphere)
+    // ── NEBULA CLOUD ──────────────────────────────────────────────────────────
+    const nebCount = 800
+    const nebPos   = new Float32Array(nebCount * 3)
+    const nebCol   = new Float32Array(nebCount * 3)
+    for (let i = 0; i < nebCount; i++) {
+      nebPos[i * 3]     = (Math.random() - 0.5) * 30
+      nebPos[i * 3 + 1] = (Math.random() - 0.5) * 15
+      nebPos[i * 3 + 2] = (Math.random() - 0.5) * 10 - 5
+      const c = Math.random()
+      nebCol[i * 3]     = c < 0.5 ? 0.35 : 0.15
+      nebCol[i * 3 + 1] = c < 0.5 ? 0.9  : 0.82
+      nebCol[i * 3 + 2] = c < 0.5 ? 0.85 : 0.2
+    }
+    const nebGeo = new THREE.BufferGeometry()
+    nebGeo.setAttribute('position', new THREE.BufferAttribute(nebPos, 3))
+    nebGeo.setAttribute('color',    new THREE.BufferAttribute(nebCol, 3))
+    const nebula = new THREE.Points(nebGeo, new THREE.PointsMaterial({
+      vertexColors: true, size: 0.25, sizeAttenuation: true,
+      transparent: true, opacity: 0.35, depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    }))
+    scene.add(nebula)
 
-    // ── Floating Icosahedron ──────────────────────────────────────────────────
-    const ico = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.5, 1),
-      new THREE.MeshBasicMaterial({ color: 0xf0a53b, wireframe: true, transparent: true, opacity: 0.3 })
-    )
-    ico.position.set(-5, 0, -5)
-    scene.add(ico)
-
-    // ── Mouse tracking ────────────────────────────────────────────────────────
+    // ── MOUSE ─────────────────────────────────────────────────────────────────
     const mouse = { x: 0, y: 0 }
     const onMouseMove = (e: MouseEvent) => {
       mouse.x = (e.clientX / window.innerWidth)  * 2 - 1
@@ -115,7 +198,7 @@ export default function ParticleField() {
     }
     window.addEventListener('mousemove', onMouseMove)
 
-    // ── Animation ─────────────────────────────────────────────────────────────
+    // ── ANIMATION ─────────────────────────────────────────────────────────────
     let rafId = 0
     const clock = new THREE.Clock()
 
@@ -123,52 +206,38 @@ export default function ParticleField() {
       rafId = requestAnimationFrame(tick)
       const t = clock.getElapsedTime()
 
-      stars.rotation.x = t * 0.03
-      stars.rotation.y = t * 0.015
+      galaxy.rotation.y  = t * 0.04
+      helixGroup.rotation.y = t * 0.3
+      nebula.rotation.y  = t * 0.01
+      nebula.rotation.x  = t * 0.005
 
-      nearParticles.rotation.y += (mouse.x * 0.25 - nearParticles.rotation.y) * 0.05
-      nearParticles.rotation.x += (-mouse.y * 0.15 - nearParticles.rotation.x) * 0.05
-      nearParticles.rotation.z += 0.001
+      rings.forEach(({ mesh, speed }) => { mesh.rotation.z = t * speed })
 
-      torus1.rotation.x = t * 0.3
-      torus1.rotation.y = t * 0.2
-      torus2.rotation.x = -t * 0.2
-      torus2.rotation.z =  t * 0.15
-
-      ico.rotation.x = t * 0.25
-      ico.rotation.y = t * 0.35
-      ico.position.y = Math.sin(t * 0.8) * 0.4
+      // Subtle mouse parallax on camera
+      camera.position.x += (mouse.x * 1.5 - camera.position.x) * 0.03
+      camera.position.y += (-mouse.y * 1.0 - camera.position.y) * 0.03
+      camera.lookAt(0, 0, 0)
 
       renderer.render(scene, camera)
     }
     tick()
 
-    // ── Resize ────────────────────────────────────────────────────────────────
+    // ── RESIZE ────────────────────────────────────────────────────────────────
     const onResize = () => {
-      const nw = window.innerWidth
-      const nh = window.innerHeight
-      camera.aspect = nw / nh
+      camera.aspect = W() / H()
       camera.updateProjectionMatrix()
-      renderer.setSize(nw, nh)
+      renderer.setSize(W(), H())
     }
     window.addEventListener('resize', onResize)
 
-    // ── Cleanup ───────────────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('resize', onResize)
       renderer.dispose()
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement)
-      }
+      if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement)
     }
   }, [])
 
-  return (
-    <div
-      ref={mountRef}
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-    />
-  )
+  return <div ref={mountRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
 }

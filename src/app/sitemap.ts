@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://reyansh.dev')
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -11,6 +11,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
+    },
+    {
+      url: `${BASE_URL}/#skills`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/#experience`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/#projects`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/#contact`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.7,
     },
   ]
 }
