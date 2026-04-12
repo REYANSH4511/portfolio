@@ -8,6 +8,13 @@ export default function CustomCursor() {
   const ringPos = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
+    // Don't run on touch devices — wastes CPU and is invisible anyway
+    if (window.matchMedia('(pointer: coarse)').matches) return
+
+    // Show cursors now that we know it's a mouse device
+    if (dotRef.current) dotRef.current.style.display = 'block'
+    if (ringRef.current) ringRef.current.style.display = 'block'
+
     const onMove = (e: MouseEvent) => {
       pos.current = { x: e.clientX, y: e.clientY }
       if (dotRef.current) {
@@ -59,12 +66,13 @@ export default function CustomCursor() {
       <div
         ref={dotRef}
         className="fixed top-0 left-0 w-[10px] h-[10px] rounded-full pointer-events-none z-[10000]"
-        style={{ background: '#58e6d9', mixBlendMode: 'difference', transition: 'transform 0.05s linear' }}
+        style={{ display: 'none', background: '#58e6d9', mixBlendMode: 'difference', transition: 'transform 0.05s linear' }}
       />
       <div
         ref={ringRef}
         className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999]"
         style={{
+          display: 'none',
           width: 36, height: 36,
           border: '1px solid rgba(88,230,217,0.35)',
           transition: 'width 0.2s, height 0.2s, border-color 0.2s',

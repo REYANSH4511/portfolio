@@ -13,9 +13,6 @@
     "react": "^19",
     "react-dom": "^19",
     "three": "^0.170.0",
-    "framer-motion": "^11.11.1",
-    "lenis": "^1.1.14",
-    "gsap": "^3.12.5",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.5.2"
   },

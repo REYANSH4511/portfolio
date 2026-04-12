@@ -170,4 +170,8 @@ body::before {
   animation: scanLine 8s linear infinite;
   pointer-events: none;
   z-index: 9998;
+  /* Pause animation when tab is hidden to save CPU */
+  animation-play-state: running;
+  will-change: transform;
+  contain: strict;
 }

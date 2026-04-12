@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#050709"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#21262d" stroke-width="2"/>
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#58e6d9" stroke-width="0.4" opacity="0.15"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="980" cy="300" r="260" fill="#58e6d9" opacity="0.04"/>
+  <circle cx="980" cy="300" r="180" fill="#58e6d9" opacity="0.03"/>
+  <!-- Decorative bracket -->
+  <text x="1020" y="420" font-family="monospace" font-size="220" fill="#58e6d9" opacity="0.05">{}</text>
+  <!-- Status dot -->
+  <circle cx="80" cy="140" r="7" fill="#39d353"/>
+  <text x="100" y="148" font-family="monospace" font-size="18" fill="#6e7681">Available for opportunities</text>
+  <!-- Name -->
+  <text x="80" y="260" font-family="monospace" font-size="80" font-weight="bold" fill="#e6edf3">Reyansh Joshi</text>
+  <!-- Cyan underline accent -->
+  <rect x="80" y="278" width="620" height="4" fill="#58e6d9" rx="2" opacity="0.8"/>
+  <!-- Role -->
+  <text x="80" y="345" font-family="monospace" font-size="34" fill="#58e6d9">Senior Full Stack Developer</text>
+  <!-- Tech stack -->
+  <text x="80" y="415" font-family="monospace" font-size="22" fill="#6e7681">MERN  ·  Python  ·  AWS  ·  LangChain  ·  DevOps</text>
+  <!-- Metrics -->
+  <text x="80" y="490" font-family="monospace" font-size="20" fill="#39d353">4+ years  ·  99.9% uptime  ·  7+ production systems</text>
+  <!-- URL -->
+  <rect x="78" y="545" width="200" height="40" rx="6" fill="#58e6d9" opacity="0.1" stroke="#58e6d9" stroke-width="1" opacity="0.3"/>
+  <text x="178" y="571" font-family="monospace" font-size="22" fill="#58e6d9" text-anchor="middle">reyansh.dev</text>
+</svg>

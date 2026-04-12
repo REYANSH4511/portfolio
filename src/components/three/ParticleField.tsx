@@ -203,12 +203,17 @@ export default function ParticleField() {
     }
     window.addEventListener('mousemove', onMouseMove)
 
-    // ── ANIMATION ─────────────────────────────────────────────────────────────
+    // ── ANIMATION — capped at 30fps to reduce TBT on initial load ────────────
     let rafId = 0
     const clock = new THREE.Clock()
+    let lastFrame = 0
+    const FPS_CAP = 30
+    const FRAME_MS = 1000 / FPS_CAP
 
-    const tick = () => {
+    const tick = (now: number) => {
       rafId = requestAnimationFrame(tick)
+      if (now - lastFrame < FRAME_MS) return
+      lastFrame = now
       const t = clock.getElapsedTime()
 
       galaxy.rotation.y  = t * 0.04
@@ -225,7 +230,7 @@ export default function ParticleField() {
 
       renderer.render(scene, camera)
     }
-    tick()
+    tick(0)
 
     // ── RESIZE ────────────────────────────────────────────────────────────────
     const onResize = () => {
