@@ -173,7 +173,7 @@ export default function ParticleField() {
     })
 
     // ── NEBULA CLOUD ──────────────────────────────────────────────────────────
-    const nebCount = 800
+    const nebCount = 400  // reduced from 800
     const nebPos   = new Float32Array(nebCount * 3)
     const nebCol   = new Float32Array(nebCount * 3)
     for (let i = 0; i < nebCount; i++) {

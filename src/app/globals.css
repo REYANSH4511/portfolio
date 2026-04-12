@@ -12,7 +12,7 @@
   --cyan: #58e6d9;
   --green: #39d353;
   --amber: #f0a53b;
-  --muted: #6e7681;
+  --muted: #8b949e;
   --text: #e6edf3;
   --text2: #b1bac4;
 }
@@ -121,10 +121,12 @@ body::before {
   opacity: 0;
   transform: translateY(32px);
   transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 /* Stagger children */

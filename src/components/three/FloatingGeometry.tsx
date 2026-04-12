@@ -67,7 +67,7 @@ export default function FloatingGeometry() {
     scene.add(photonRing)
 
     // ── ACCRETION DISK (flat particle ring) ───────────────────────────────────
-    const diskCount = 5000
+    const diskCount = 2500  // reduced from 5000
     const diskPos   = new Float32Array(diskCount * 3)
     const diskCol   = new Float32Array(diskCount * 3)
 

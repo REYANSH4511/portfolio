@@ -89,6 +89,8 @@ export default function Navbar() {
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden w-8 h-8 flex flex-col justify-center gap-1.5"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
           data-hover
         >
           <span className={`h-px bg-[#e6edf3] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />

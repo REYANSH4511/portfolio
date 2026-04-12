@@ -9,7 +9,13 @@ const FloatingGeometry = dynamic(() => import('./three/FloatingGeometry'), { ssr
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false)
   useEffect(() => {
-    setIsDesktop(window.innerWidth >= 1024)
+    // Use requestIdleCallback to defer Three.js load until browser is idle
+    const check = () => setIsDesktop(window.innerWidth >= 1024)
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(check, { timeout: 2000 })
+    } else {
+      setTimeout(check, 200)
+    }
   }, [])
   return isDesktop
 }

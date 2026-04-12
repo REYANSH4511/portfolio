@@ -23,7 +23,7 @@ module.exports = {
           green: '#39d353',
           amber: '#f0a53b',
         },
-        muted: '#6e7681',
+        muted: '#8b949e',
         border: '#21262d',
       },
       animation: {
