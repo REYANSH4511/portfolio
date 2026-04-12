@@ -24,7 +24,7 @@ export default function ParticleField() {
     camera.position.set(0, 0, 18)
 
     // ── GALAXY ARMS ───────────────────────────────────────────────────────────
-    const galaxyCount = 6000
+    const galaxyCount = 3000  // reduced from 6000
     const galaxyPos   = new Float32Array(galaxyCount * 3)
     const galaxyCol   = new Float32Array(galaxyCount * 3)
     const galaxySize  = new Float32Array(galaxyCount)
@@ -76,50 +76,55 @@ export default function ParticleField() {
     galaxy.position.z = -8
     scene.add(galaxy)
 
-    // ── DNA DOUBLE HELIX ──────────────────────────────────────────────────────
+    // ── DNA DOUBLE HELIX — merged into single BufferGeometry for performance ──
     const helixGroup = new THREE.Group()
-    const helixCount = 300
+    const helixCount = 150  // reduced from 300
     const helixRadius = 2.5
     const helixHeight = 20
 
-    for (let strand = 0; strand < 2; strand++) {
-      const strandOffset = strand * Math.PI
-      for (let i = 0; i < helixCount; i++) {
-        const t   = (i / helixCount) * Math.PI * 8
-        const y   = (i / helixCount) * helixHeight - helixHeight / 2
+    // Merge all helix points into two BufferGeometries (one per strand)
+    const strand0Pos: number[] = []
+    const strand1Pos: number[] = []
+    const rungPoints: number[] = []
 
-        const sphere = new THREE.Mesh(
-          new THREE.SphereGeometry(0.06, 8, 8),
-          new THREE.MeshBasicMaterial({
-            color:       strand === 0 ? 0x58e6d9 : 0x39d353,
-            transparent: true,
-            opacity:     0.85,
-          })
-        )
-        sphere.position.set(
-          Math.cos(t + strandOffset) * helixRadius,
-          y,
-          Math.sin(t + strandOffset) * helixRadius
-        )
-        helixGroup.add(sphere)
+    for (let i = 0; i < helixCount; i++) {
+      const t = (i / helixCount) * Math.PI * 8
+      const y = (i / helixCount) * helixHeight - helixHeight / 2
 
-        // Rungs every 10 particles
-        if (i % 10 === 0) {
-          const pos1 = new THREE.Vector3(
-            Math.cos(t) * helixRadius, y, Math.sin(t) * helixRadius
-          )
-          const pos2 = new THREE.Vector3(
-            Math.cos(t + Math.PI) * helixRadius, y, Math.sin(t + Math.PI) * helixRadius
-          )
-          const rungGeo = new THREE.BufferGeometry().setFromPoints([pos1, pos2])
-          const rung = new THREE.Line(
-            rungGeo,
-            new THREE.LineBasicMaterial({ color: 0xf0a53b, transparent: true, opacity: 0.3 })
-          )
-          helixGroup.add(rung)
-        }
+      strand0Pos.push(
+        Math.cos(t) * helixRadius, y, Math.sin(t) * helixRadius
+      )
+      strand1Pos.push(
+        Math.cos(t + Math.PI) * helixRadius, y, Math.sin(t + Math.PI) * helixRadius
+      )
+
+      if (i % 10 === 0) {
+        rungPoints.push(
+          Math.cos(t) * helixRadius, y, Math.sin(t) * helixRadius,
+          Math.cos(t + Math.PI) * helixRadius, y, Math.sin(t + Math.PI) * helixRadius
+        )
       }
     }
+
+    const makeStrand = (positions: number[], color: number) => {
+      const geo = new THREE.BufferGeometry()
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+      return new THREE.Points(geo, new THREE.PointsMaterial({
+        color, size: 0.08, transparent: true, opacity: 0.85,
+        depthWrite: false, sizeAttenuation: true,
+      }))
+    }
+
+    helixGroup.add(makeStrand(strand0Pos, 0x58e6d9))
+    helixGroup.add(makeStrand(strand1Pos, 0x39d353))
+
+    // Single Line for all rungs
+    const rungGeo = new THREE.BufferGeometry()
+    rungGeo.setAttribute('position', new THREE.Float32BufferAttribute(rungPoints, 3))
+    helixGroup.add(new THREE.LineSegments(
+      rungGeo,
+      new THREE.LineBasicMaterial({ color: 0xf0a53b, transparent: true, opacity: 0.3 })
+    ))
     helixGroup.position.set(-6, 0, 0)
     helixGroup.scale.setScalar(0.5)
     scene.add(helixGroup)

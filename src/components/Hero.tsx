@@ -5,6 +5,15 @@ import dynamic from 'next/dynamic'
 const ParticleField = dynamic(() => import('./three/ParticleField'), { ssr: false })
 const FloatingGeometry = dynamic(() => import('./three/FloatingGeometry'), { ssr: false })
 
+// Detect mobile once at module level (no SSR needed — dynamic import)
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => {
+    setIsDesktop(window.innerWidth >= 1024)
+  }, [])
+  return isDesktop
+}
+
 const phrases = [
   'Building scalable MERN apps...',
   'Shipping with Docker & AWS...',
@@ -81,11 +90,12 @@ function StatCounter({ value, label, suffix = '' }: { value: number; label: stri
 }
 
 export default function Hero() {
+  const isDesktop = useIsDesktop()
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* 3D Background */}
+      {/* 3D Background — desktop only to avoid loading Three.js on mobile */}
       <div className="absolute inset-0 z-0">
-        <ParticleField />
+        {isDesktop && <ParticleField />}
       </div>
 
       {/* Gradient overlays */}
@@ -165,15 +175,15 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right — 3D Orb */}
+          {/* Right — 3D Orb — desktop only */}
           <div className="hidden lg:flex items-center justify-center">
             <div className="relative w-[480px] h-[480px]">
               {/* Glow rings behind orb */}
               <div className="absolute inset-8 rounded-full border border-accent-cyan/10 animate-spin-slow" />
               <div className="absolute inset-16 rounded-full border border-accent-green/10 animate-[spin_15s_linear_infinite_reverse]" />
 
-              {/* 3D Scene */}
-              <FloatingGeometry />
+              {/* 3D Scene — only rendered on desktop */}
+              {isDesktop && <FloatingGeometry />}
 
               {/* Floating badges */}
               <div className="absolute top-4 left-0 glass rounded-lg px-3 py-2 border border-accent-cyan/20 animate-float" style={{ animationDelay: '0s' }}>
