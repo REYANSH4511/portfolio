@@ -2,19 +2,18 @@
 import { useEffect, useState, useRef } from 'react'
 import dynamic from 'next/dynamic'
 
-const ParticleField = dynamic(() => import('./three/ParticleField'), { ssr: false })
+// FloatingGeometry only — ParticleField replaced with CSS to eliminate TBT on desktop
 const FloatingGeometry = dynamic(() => import('./three/FloatingGeometry'), { ssr: false })
 
-// Detect mobile once at module level (no SSR needed — dynamic import)
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false)
   useEffect(() => {
-    // Use requestIdleCallback to defer Three.js load until browser is idle
+    // Defer orb until after LCP — doesn't affect paint metrics
     const check = () => setIsDesktop(window.innerWidth >= 1024)
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(check, { timeout: 2000 })
+      requestIdleCallback(check, { timeout: 3000 })
     } else {
-      setTimeout(check, 200)
+      setTimeout(check, 500)
     }
   }, [])
   return isDesktop
@@ -99,9 +98,51 @@ export default function Hero() {
   const isDesktop = useIsDesktop()
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* 3D Background — desktop only to avoid loading Three.js on mobile */}
-      <div className="absolute inset-0 z-0">
-        {isDesktop && <ParticleField />}
+      {/* CSS particle background — replaces Three.js ParticleField, zero JS cost */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Animated gradient orbs */}
+        <div style={{
+          position: 'absolute', width: '600px', height: '600px',
+          borderRadius: '50%', top: '-100px', left: '-100px',
+          background: 'radial-gradient(circle, rgba(88,230,217,0.06) 0%, transparent 70%)',
+          animation: 'float 12s ease-in-out infinite',
+        }} />
+        <div style={{
+          position: 'absolute', width: '400px', height: '400px',
+          borderRadius: '50%', bottom: '10%', right: '5%',
+          background: 'radial-gradient(circle, rgba(57,211,83,0.05) 0%, transparent 70%)',
+          animation: 'float 9s ease-in-out infinite reverse',
+        }} />
+        <div style={{
+          position: 'absolute', width: '300px', height: '300px',
+          borderRadius: '50%', top: '40%', left: '30%',
+          background: 'radial-gradient(circle, rgba(240,165,59,0.04) 0%, transparent 70%)',
+          animation: 'float 15s ease-in-out infinite',
+          animationDelay: '3s',
+        }} />
+        {/* Static star field via CSS box-shadow — no JS */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: `
+            radial-gradient(1px 1px at 10% 15%, rgba(88,230,217,0.4) 0%, transparent 100%),
+            radial-gradient(1px 1px at 25% 45%, rgba(88,230,217,0.3) 0%, transparent 100%),
+            radial-gradient(1px 1px at 40% 20%, rgba(57,211,83,0.35) 0%, transparent 100%),
+            radial-gradient(1px 1px at 55% 65%, rgba(88,230,217,0.25) 0%, transparent 100%),
+            radial-gradient(1px 1px at 70% 30%, rgba(240,165,59,0.3) 0%, transparent 100%),
+            radial-gradient(1px 1px at 80% 75%, rgba(88,230,217,0.35) 0%, transparent 100%),
+            radial-gradient(1px 1px at 15% 70%, rgba(57,211,83,0.2) 0%, transparent 100%),
+            radial-gradient(1px 1px at 90% 10%, rgba(88,230,217,0.4) 0%, transparent 100%),
+            radial-gradient(1px 1px at 35% 85%, rgba(240,165,59,0.25) 0%, transparent 100%),
+            radial-gradient(1px 1px at 60% 5%,  rgba(88,230,217,0.3) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 5% 40%,  rgba(88,230,217,0.5) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 48% 52%, rgba(57,211,83,0.45) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 75% 88%, rgba(88,230,217,0.4) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 92% 55%, rgba(240,165,59,0.4) 0%, transparent 100%),
+            radial-gradient(2px 2px at 20% 92%, rgba(88,230,217,0.6) 0%, transparent 100%),
+            radial-gradient(2px 2px at 65% 42%, rgba(57,211,83,0.5) 0%, transparent 100%),
+            radial-gradient(2px 2px at 85% 22%, rgba(88,230,217,0.55) 0%, transparent 100%)
+          `,
+        }} />
       </div>
 
       {/* Gradient overlays */}
