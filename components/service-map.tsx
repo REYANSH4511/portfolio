@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   ReactIcon,
   NodeIcon,
@@ -10,6 +10,7 @@ import {
   AIIcon,
   PostgreSQLIcon,
 } from "@/components/icons";
+import { throttle } from "@/lib/utils";
 
 const nodes = [
   { id: "react", label: "React", icon: ReactIcon, x: 80, y: 30 },
@@ -39,23 +40,27 @@ export function ServiceMap() {
   const rotateX = useSpring(useTransform(mouseY, [-150, 150], [4, -4]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-150, 150], [-4, 4]), springConfig);
 
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      const rect = (e.currentTarget as Window)?.innerWidth
-        ? {
-            width: window.innerWidth,
-            height: window.innerHeight,
-          }
-        : { width: 0, height: 0 };
-      const x = e.clientX - rect.width / 2;
-      const y = e.clientY - rect.height / 2;
-      mouseX.set(x);
-      mouseY.set(y);
-    };
+  const handleMove = useMemo(
+    () =>
+      throttle((e: MouseEvent) => {
+        const rect = (e.currentTarget as Window)?.innerWidth
+          ? {
+              width: window.innerWidth,
+              height: window.innerHeight,
+            }
+          : { width: 0, height: 0 };
+        const x = e.clientX - rect.width / 2;
+        const y = e.clientY - rect.height / 2;
+        mouseX.set(x);
+        mouseY.set(y);
+      }, 16),
+    [mouseX, mouseY]
+  );
 
+  useEffect(() => {
     window.addEventListener("mousemove", handleMove);
     return () => window.removeEventListener("mousemove", handleMove);
-  }, [mouseX, mouseY]);
+  }, [handleMove]);
 
   return (
     <div className="relative rounded-2xl border border-border bg-elevated/50 p-6 backdrop-blur-sm">
