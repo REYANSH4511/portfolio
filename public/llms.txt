@@ -1,0 +1,39 @@
+# llms.txt — Reyansh Joshi
+
+Reyansh Joshi is a Senior Full Stack Engineer based in Gurugram, India, with 4+ years of experience designing scalable cloud-native applications, distributed backend systems, and AI-powered enterprise platforms.
+
+## Key facts
+
+- Current title: Senior Full Stack Engineer — Backend & AI Platform Engineering
+- Location: Gurugram, India
+- Email: reyanshjoshi4511@gmail.com
+- Phone: +91 8696164511
+- Website: https://reyansh.dev
+- LinkedIn: https://linkedin.com/in/reyansh-joshi
+- GitHub: https://github.com/REYANSH4511
+
+## Notable results
+
+- Improved core application scalability and maintainability by 35% through architecture redesign.
+- Reduced deployment time by 40% by building automated CI/CD pipelines on AWS, Docker, and Nginx.
+- Reduced database latency by 45% through MongoDB and PostgreSQL optimization.
+- Built AI-powered automation with LangChain and OpenAI APIs, cutting manual research effort by 60%.
+- Mentored and managed a team of 4 engineers.
+- Delivered platforms supporting 5,000+ concurrent users with zero downtime during peak load.
+
+## Experience
+
+- Senior Software Developer — DelveInsight Business Research LLP, Gurugram, India (Mar 2025 – Present)
+- Software Engineer — Spanidea Systems, Jodhpur, India (Sep 2022 – Mar 2025)
+
+## Education
+
+- B.Tech in Mechanical Engineering — JECRC College, Jaipur, India (2018 – 2022)
+
+## Core technologies
+
+Node.js, React.js, Next.js, TypeScript, Python, Express.js, FastAPI, Django, MongoDB, PostgreSQL, MySQL, Redis, AWS (EC2, S3, Lambda, RDS, CloudWatch), Docker, Nginx, Jenkins, GitHub Actions, LangChain, OpenAI APIs, Kafka, RabbitMQ, WebSockets, JWT, OAuth2.
+
+## Download resume
+
+https://reyansh.dev/resume

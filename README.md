@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reyansh Joshi — Portfolio Website
+
+Personal portfolio for **Reyansh Joshi**, a Senior Full Stack Engineer specializing in backend & AI platform engineering. Built with Next.js 15+, TypeScript, Tailwind CSS v4, and Framer Motion.
 
 ## Getting Started
 
-First, run the development server:
+This project requires **Node.js >= 20.9.0**. If you use `nvm`:
 
 ```bash
+nvm use 20
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `app/` — Next.js App Router routes, layout, globals, SEO files (`sitemap.ts`, `robots.ts`, `opengraph-image.tsx`)
+- `components/` — Reusable UI components and page sections
+- `data/profile.ts` — Resume content and profile data
+- `public/resume.pdf` — Downloadable resume
+- `public/llms.txt` — AI-crawler summary
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Recommended: deploy to [Vercel](https://vercel.com) and point the custom domain `reyansh.dev`.
 
-## Deploy on Vercel
+## Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The site ships with dark mode as default and a light mode toggle.
+- The resume download route is at `/resume`.
+- SEO/AEO files: `robots.ts`, `sitemap.ts`, `opengraph-image.tsx`, and `public/llms.txt`.
