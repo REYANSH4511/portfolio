@@ -1,6 +1,6 @@
-# llms.txt — Reyansh Joshi
+# Reyansh Joshi
 
-Reyansh Joshi is a Senior Full Stack Engineer based in Gurugram, India, with 4+ years of experience designing scalable cloud-native applications, distributed backend systems, and AI-powered enterprise platforms.
+> Senior Full Stack Engineer — Backend & AI Platform Engineering, based in Gurugram, India. 4+ years designing scalable cloud-native applications, distributed backend systems, and AI-powered enterprise platforms.
 
 ## Key facts
 
