@@ -58,7 +58,7 @@ export function Nav() {
             type="button"
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:text-fg hover:bg-elevated transition-colors"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:text-fg hover:bg-elevated transition-colors cursor-pointer"
           >
             <Sun className="hidden h-4 w-4 dark:block" />
             <Moon className="h-4 w-4 dark:hidden" />

@@ -61,7 +61,7 @@ export function TypingTerminal() {
           <span className="text-success">$</span>{" "}
           {text}
           <span
-            className={`inline-block w-2 h-4 align-middle bg-current ml-0.5 ${
+            className={`inline-block w-2 h-4 align-middle bg-current ml-0.5 will-change-opacity ${
               showCursor ? "opacity-100" : "opacity-0"
             }`}
           />

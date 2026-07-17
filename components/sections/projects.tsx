@@ -72,7 +72,7 @@ export function Projects() {
   const [featured, ...rest] = projects;
 
   return (
-    <section id="projects" className="border-b border-border/50">
+    <section id="projects" className="section-optimize border-b border-border/50">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <motion.div
           initial="hidden"

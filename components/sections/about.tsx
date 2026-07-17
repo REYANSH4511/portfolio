@@ -6,7 +6,7 @@ import { fadeInUp } from "@/components/motion-variants";
 
 export function About() {
   return (
-    <section id="about" className="border-b border-border/50">
+    <section id="about" className="section-optimize border-b border-border/50">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <motion.div
           initial="hidden"

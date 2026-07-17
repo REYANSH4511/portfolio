@@ -13,7 +13,7 @@ import { fadeInUp, staggerContainer } from "@/components/motion-variants";
 
 export function Contact() {
   return (
-    <section id="contact" className="border-b border-border/50">
+    <section id="contact" className="section-optimize border-b border-border/50">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <motion.div
           initial="hidden"

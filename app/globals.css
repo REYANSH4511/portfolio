@@ -312,7 +312,23 @@ html.light .skill-icon-tint--zinc {
   outline-offset: 2px;
 }
 
-/* Reduced motion */
+/* Performance helpers */
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Performance: skip rendering below-the-fold sections until near viewport */
+.section-optimize {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Keep hero and other above-fold content always rendered */
+.section-visible {
+  content-visibility: visible;
+}
+
+/* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

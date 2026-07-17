@@ -69,6 +69,7 @@ export function ServiceMap() {
           rotateX,
           rotateY,
           transformPerspective: 800,
+          willChange: "transform",
         }}
       >
         <defs>
