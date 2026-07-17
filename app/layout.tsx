@@ -60,6 +60,10 @@ export default function RootLayout({
           name="google-site-verification"
           content="c22k8YKi92kgVckmc7ddVitp7EAhonK8lxD9-dEEdRY"
         />
+        <meta
+          name="msvalidate.01"
+          content="620F97E45A658935B33F2B48BC472E74"
+        />
         <Script
           id="theme-script"
           strategy="beforeInteractive"
