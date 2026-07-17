@@ -34,6 +34,14 @@ Reyansh Joshi is a Senior Full Stack Engineer based in Gurugram, India, with 4+ 
 
 Node.js, React.js, Next.js, TypeScript, Python, Express.js, FastAPI, Django, MongoDB, PostgreSQL, MySQL, Redis, AWS (EC2, S3, Lambda, RDS, CloudWatch), Docker, Nginx, Jenkins, GitHub Actions, LangChain, OpenAI APIs, Kafka, RabbitMQ, WebSockets, JWT, OAuth2.
 
+## Selected projects
+
+- **DelveInsight Market AI Platform** — Built a RAG-powered chat system (React, Node.js, PostgreSQL, Python, FastAPI, LangChain, OpenAI) that answers natural-language questions from uploaded PDF reports; reduced manual research effort by 60%.
+- **DelveInsight.com Platform Optimization** — Migrated the main site to Next.js ISR and the App Router, added AWS WAF, private VPC, CDN, and AWS Secrets Manager, and replaced single-record Algolia puts with a bulk upload API that indexes 1,000+ records in under 3 seconds.
+- **The Medical League (iTDL)** — Reverse-engineered a UK healthcare revalidation platform from production Angular build files and GraphQL endpoints, rebuilt the frontend in React with role-based modules for doctors, admins, superadmins, and ROs, and optimized complex MongoDB aggregation pipelines.
+- **IFAS EdTech Platform** — Delivered a full-stack EdTech ecosystem with student/teacher portals, CRM, admin panel, test and assessment systems, live classes, recorded lectures, real-time chat, and Razorpay payments; supported 5,000+ concurrent users with zero downtime.
+- **Sensor Coverage Tool** — Built a React web portal with JavaScript and Pyodide for in-browser sensor coverage visualization, backed by a Django/Python API with Celery for background processing.
+
 ## Download resume
 
 https://reyansh.dev/resume

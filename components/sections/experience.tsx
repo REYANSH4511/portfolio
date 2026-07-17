@@ -58,7 +58,7 @@ export function Experience() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${job.company} website`}
-                        className={`inline-flex shrink-0 items-center justify-center rounded-lg border border-border bg-elevated text-fg transition-colors hover:border-accent hover:bg-accent/5 ${
+                        className={`inline-flex shrink-0 items-center justify-center rounded-lg border border-border bg-elevated/80 text-fg backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent/5 hover:shadow-md ${
                           job.id === "delveinsight" || job.id === "spanidea"
                             ? "h-10 px-4"
                             : "h-10 w-10 font-mono text-xs font-semibold"

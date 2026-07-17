@@ -13,6 +13,7 @@ export function Hero() {
       id="hero"
       className="relative overflow-hidden border-b border-border/50"
     >
+      <div className="hero-aurora" />
       <div className="hero-grid absolute inset-0" />
 
       <div className="relative mx-auto max-w-6xl px-4 pt-16 pb-10 sm:px-6 sm:pt-24 sm:pb-12 lg:px-8 lg:pt-32 lg:pb-16">
@@ -39,7 +40,7 @@ export function Hero() {
             >
               <h1 className="break-words text-4xl font-semibold leading-[0.95] tracking-tight text-fg sm:text-5xl md:text-6xl lg:text-7xl">
                 Hi, I&apos;m{" "}
-                <span className="bg-linear-to-r from-accent via-accent to-success bg-clip-text text-transparent">
+                <span className="name-glow bg-linear-to-r from-accent via-accent to-success bg-clip-text text-transparent">
                   {profile.name}
                 </span>
               </h1>
@@ -103,7 +104,7 @@ export function Hero() {
             {achievements.map((item) => (
               <div
                 key={item.label}
-                className="rounded-lg border border-border/50 bg-elevated p-4"
+                className="surface-polish rounded-lg border border-border/50 bg-elevated/80 p-4 backdrop-blur-sm"
               >
                 <p className="font-mono text-2xl font-semibold text-accent">
                   {item.value}

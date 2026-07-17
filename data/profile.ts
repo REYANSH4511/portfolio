@@ -8,6 +8,7 @@ export const profile = {
   github: "https://github.com/REYANSH4511",
   website: "https://reyansh.dev",
   resumeUrl: "/resume",
+  lastUpdated: "2026-07-17T00:00:00.000Z",
   summary:
     "Senior Full Stack Engineer with 4+ years of experience designing scalable cloud-native applications, distributed backend systems, and AI-powered enterprise platforms. Proven expertise in Node.js, React, Python, AWS, Microservices, FastAPI, and modern DevOps practices. Experienced in leading engineering teams, architecting high-performance systems, building production AI applications with LangChain and OpenAI APIs, and delivering secure, scalable software for enterprise customers.",
 };

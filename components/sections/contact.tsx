@@ -55,7 +55,7 @@ export function Contact() {
             <a
               href={`mailto:${profile.email}`}
               aria-label="Email"
-              className="transition-transform hover:scale-110"
+              className="rounded-full p-2 text-muted transition-all duration-200 hover:scale-110 hover:text-accent hover:shadow-[0_0_20px_rgba(124,156,255,0.25)]"
             >
               <MailBrandIcon className="h-7 w-7" />
             </a>
@@ -64,7 +64,7 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="transition-transform hover:scale-110"
+              className="rounded-full p-2 text-muted transition-all duration-200 hover:scale-110 hover:text-success hover:shadow-[0_0_20px_rgba(61,220,151,0.25)]"
             >
               <WhatsAppIcon className="h-7 w-7" />
             </a>
@@ -73,7 +73,7 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="transition-transform hover:scale-110"
+              className="rounded-full p-2 text-muted transition-all duration-200 hover:scale-110 hover:text-[#0A66C2] hover:shadow-[0_0_20px_rgba(10,102,194,0.25)] dark:text-muted"
             >
               <LinkedInBrandIcon className="h-7 w-7" />
             </a>
@@ -82,7 +82,7 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-[#181717] transition-transform hover:scale-110 dark:text-white"
+              className="rounded-full p-2 text-muted transition-all duration-200 hover:scale-110 hover:text-fg hover:shadow-[0_0_20px_rgba(124,156,255,0.2)] dark:text-muted"
             >
               <GithubBrandIcon className="h-7 w-7" />
             </a>
@@ -90,7 +90,7 @@ export function Contact() {
               href="/resume"
               download
               aria-label="Download Resume"
-              className="text-muted transition-colors hover:text-accent"
+              className="rounded-full p-2 text-muted transition-all duration-200 hover:scale-110 hover:text-accent hover:shadow-[0_0_20px_rgba(124,156,255,0.25)]"
             >
               <Download className="h-7 w-7" />
             </a>

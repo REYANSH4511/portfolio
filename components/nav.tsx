@@ -23,7 +23,7 @@ export function Nav() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/50 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border/40 bg-bg/70 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
@@ -82,10 +82,10 @@ export function Nav() {
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-200 ease-in-out",
-          mobileOpen ? "max-h-96 border-b border-border/50" : "max-h-0"
+          mobileOpen ? "max-h-96 border-b border-border/40" : "max-h-0"
         )}
       >
-        <nav className="flex flex-col px-4 py-2 space-y-1 bg-bg">
+        <nav className="flex flex-col px-4 py-2 space-y-1 bg-bg/90 backdrop-blur-xl">
           {navLinks.map((link) => (
             <Link
               key={link.href}

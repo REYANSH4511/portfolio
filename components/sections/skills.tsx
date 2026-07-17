@@ -116,12 +116,12 @@ export function Skills() {
                   key={group.key}
                   variants={fadeInUp}
                   className={cn(
-                    "group rounded-xl border bg-elevated p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg",
+                    "group surface-polish rounded-xl border bg-elevated/90 p-5 shadow-sm backdrop-blur-sm transition-all duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg",
                     tint.border
                   )}
                 >
                   <div className="mb-3 flex items-center gap-2">
-                    <span className={cn("skill-icon-tint transition-transform duration-200 group-hover:scale-110", tint.bg)}>
+                    <span className={cn("skill-icon-tint transition-all duration-200 group-hover:scale-110 group-hover:shadow-[0_0_16px_rgba(124,156,255,0.25)]", tint.bg)}>
                       <Icon className={cn("h-4 w-4", tint.icon)} />
                     </span>
                     <h3 className={cn("font-mono text-xs font-semibold uppercase tracking-wider", tint.label)}>

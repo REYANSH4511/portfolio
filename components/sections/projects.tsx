@@ -14,7 +14,7 @@ function ProjectCard({
   return (
     <motion.article
       variants={fadeInUp}
-      className={`group flex flex-col rounded-xl border border-border bg-elevated p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg ${
+      className={`group surface-polish flex flex-col rounded-xl border border-border bg-elevated/90 p-5 shadow-sm backdrop-blur-sm transition-all duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg ${
         featured ? "sm:col-span-2 lg:col-span-2" : ""
       }`}
     >

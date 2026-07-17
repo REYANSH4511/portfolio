@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <style>
+    :root { --bg: #050505; --fg: #7C9CFF; --dot: #3DDC97; --border: #1F2937; }
+    @media (prefers-color-scheme: light) {
+      :root { --bg: #FAFAF9; --fg: #3D52D5; --dot: #0E9860; --border: #E4E6EB; }
+    }
+  </style>
+  <rect width="100" height="100" rx="22" fill="var(--bg)"/>
+  <rect x="3" y="3" width="94" height="94" rx="20" fill="none" stroke="var(--border)" stroke-width="2"/>
+  <text x="50" y="62" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="42" font-weight="700" text-anchor="middle" fill="var(--fg)">RJ</text>
+  <circle cx="78" cy="24" r="5" fill="var(--dot)"/>
+</svg>
